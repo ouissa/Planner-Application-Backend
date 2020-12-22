@@ -19,7 +19,7 @@ const InitiateMongoServer = async () => {
     const result = await client
       .db()
       .admin()
-      .listDatabases()
+      .listDatabases().planner_database()
 
     console.log(result);
   } catch (e) {
