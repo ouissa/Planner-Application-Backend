@@ -19,7 +19,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/semesters", semester);
-app.use("/course", semester);
+app.use("/course", course);
 
 app.listen(PORT, (req, res) => {
   console.log("Server Started at PORT ${PORT}");

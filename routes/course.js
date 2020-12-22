@@ -6,26 +6,19 @@ const Courses = require("../models/Course");
 
 router.get("/", async (req, res) => {
   try {
-    var list = [];
-    
     try {
-      
-       Dishes.find({})
-    .then((courses) => {
-         list = courses;
-               
-      res.json(list);
-      console.log("Course Endpoint here (GET OPERATION): Communication with the front-end done");
+      Courses.find({}).then(courses => {
+        var list = courses;
+        console.log(courses);
 
-    }, (err) => next(err))
-    .catch((err) => next(err));
-      
+        res.json(list);
+        console.log(
+          "Course Endpoint here (GET OPERATION): Communication with the front-end done"
+        );
+      });
     } catch (e) {
       res.send({ message: "Error in querying courses" });
     }
-
-    );
-    
   } catch (e) {
     res.send({ message: "Error in Fetching semester information" });
   }
