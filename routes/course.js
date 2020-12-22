@@ -2,11 +2,11 @@ const express = require("express");
 const { check, validationResult } = require("express-validator");
 
 const router = express.Router();
-const Courses = require("../model/Course");
+const Courses = require("../models/Course");
 
 router.get("/", async (req, res) => {
   try {
-    var list = [];
+    var list = Courses.find({});
       
     res.json(list);
     console.log(
