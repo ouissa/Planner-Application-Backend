@@ -23,4 +23,4 @@ const CourseSchema = mongoose.Schema({
 });
 
 // export model user with UserSchema
-module.exports = mongoose.model("Course", CourseSchema);
+module.exports = mongoose.model("course", CourseSchema);

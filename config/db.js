@@ -6,15 +6,21 @@ const mongoPassword = process.env.password;
 const MONGOURI = `mongodb+srv://${mongoUsername}:${mongoPassword}@planner.jqdzy.mongodb.net/planner_database?retryWrites=true&w=majority`;
 
 const InitiateMongoServer = async () => {
-  try {
-    await mongoose.connect(MONGOURI, {
-      useNewUrlParser: true
-    });
-    console.log("Connected to Planner DB !!");
-  } catch (e) {
-    console.log(e);
-    throw e;
-  }
-};
+      const client = new MongoClient(uri);
+ 
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+ 
+        // Make the appropriate DB calls
+        await  listDatabases(client);
+ 
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+
 
 module.exports = InitiateMongoServer;
