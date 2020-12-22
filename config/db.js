@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
-mongoUsername = proces.env.username;
-mongoPass = process.env.password;
+const mongoUsername = process.env.username;
+const mongoPassword = process.env.password;
 
-const MONGOURI = "mongodb+srv://${process.env.username}:${process.env.mongoPass}@planner.jqdzy.mongodb.net/planner_database?retryWrites=true&w=majority";
+const MONGOURI = `mongodb+srv://${mongoUsername}:${mongoPassword}@planner.jqdzy.mongodb.net/planner_database?retryWrites=true&w=majority`;
 
 const InitiateMongoServer = async () => {
   try {
@@ -16,8 +16,5 @@ const InitiateMongoServer = async () => {
     throw e;
   }
 };
-
-
-
 
 module.exports = InitiateMongoServer;
