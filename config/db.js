@@ -16,7 +16,11 @@ const InitiateMongoServer = async () => {
 
     // Make the appropriate DB calls
     await listDatabases(client);
-    const result = await client.db("planner_database")
+    const result = await client
+      .db()
+      .admin()
+      .listDatabases()
+
     console.log(result);
   } catch (e) {
     console.error(e);
@@ -33,8 +37,7 @@ async function listDatabases(client) {
 
   console.log("Databases:");
   databasesList.databases.forEach(db => {
-    console.log(db.name)
-
+    console.log(db.name);
   });
 }
 
