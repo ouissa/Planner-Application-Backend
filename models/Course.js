@@ -11,7 +11,7 @@ const CourseSchema = mongoose.Schema({
     required: true
   },
   "Credits": {
-    type: Number,
+    type: String,
     required: true
   },
   "Co-Requisites": [String],
