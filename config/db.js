@@ -12,10 +12,12 @@ const InitiateMongoServer = async () => {
   try {
     // Connect to the MongoDB cluster
     await client.connect();
-    console.log("we connected!")
+    console.log("we connected!");
 
     // Make the appropriate DB calls
     await listDatabases(client);
+    const result = await client.db("planner_database").collection("course_collection").find({});
+    console.log(result);
   } catch (e) {
     console.error(e);
   } finally {
@@ -30,7 +32,10 @@ async function listDatabases(client) {
     .listDatabases();
 
   console.log("Databases:");
-  databasesList.databases.forEach(db => console.log(` - ${db.c}`));
+  databasesList.databases.forEach(db => {
+    console.log(db.name)
+
+  });
 }
 
 module.exports = InitiateMongoServer;
