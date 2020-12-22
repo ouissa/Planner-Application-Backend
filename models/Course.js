@@ -14,8 +14,8 @@ const CourseSchema = mongoose.Schema({
     type: Number,
     required: true
   },
-  "Co-Requisites": [CourseSchema],
-  "Pre-Requisites":[CourseSchema],
+  "Co-Requisites": [String],
+  "Pre-Requisites":[String],
   createdAt: {
     type: Date,
     default: Date.now()
