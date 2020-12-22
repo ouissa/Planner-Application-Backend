@@ -5,7 +5,18 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    var list = ["tutoring french", "tutoring english", "tutoring web dev"];
+    var list = [
+      {
+        id: "semester-0",
+        title: "Fall 2018",
+        courses: []
+      },
+      {
+        id: "semester-1",
+        title: "Spring 2019",
+        courses: []
+      }
+    ];
     res.json(list);
     console.log(
       "Semester Endpoint here (GET OPERATION): Communication with the front-end done"

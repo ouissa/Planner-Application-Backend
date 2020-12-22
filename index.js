@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const user = require("./routes/user"); //new addition
 const semester = require("./routes/semester"); //new addition
 const InitiateMongoServer = require("./config/db");
 const path = require("path");
