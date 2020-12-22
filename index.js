@@ -18,9 +18,8 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use("/user", user);
 app.use("/semesters", semester);
 
 app.listen(PORT, (req, res) => {
-  console.log(`Server Started at PORT ${PORT}`);
+  console.log("Server Started at PORT ${PORT}");
 });
