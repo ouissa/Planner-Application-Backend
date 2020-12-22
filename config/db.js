@@ -14,11 +14,10 @@ const InitiateMongoServer = async () => {
     await client.connect();
     console.log("we connected!");
 
-    // Make the appropriate DB calls
-    await listDatabases(client);
+
     const result = await client
       .db("planner_database")
-      .collection("degrees_collection")
+      .collection("courses_collection")
       .find({})
       .toArray(function(err, result) {
         if (err) throw err;
@@ -34,16 +33,8 @@ const InitiateMongoServer = async () => {
   }
 };
 
-async function listDatabases(client) {
-  var databasesList = await client
-    .db()
-    .admin()
-    .listDatabases();
-
-  console.log("Databases:");
-  databasesList.databases.forEach(db => {
-    console.log(db.name);
-  });
+async function returnClient(client) {
+ return client;
 }
 
 module.exports = InitiateMongoServer;
