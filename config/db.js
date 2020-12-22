@@ -16,7 +16,7 @@ const InitiateMongoServer = async () => {
 
     // Make the appropriate DB calls
     await listDatabases(client);
-    const result = await client.db("planner_database").collection("courses_collection").find({"Course Code": "CSC1401"});
+    const result = await client.db("planner_database")
     console.log(result);
   } catch (e) {
     console.error(e);
