@@ -17,7 +17,14 @@ const InitiateMongoServer = async () => {
     // Make the appropriate DB calls
     await listDatabases(client);
     const result = await client
-      .db("planner_database").collection("courses_collection")
+      .db("planner_database")
+      .collection("degrees_collection")
+      .find({})
+      .toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        client.close();
+      });
 
     console.log(result);
   } catch (e) {
