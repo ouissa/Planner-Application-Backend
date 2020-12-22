@@ -1,34 +1,30 @@
-// server.js
-// where your node app starts
-
-// we've started you off with Express (https://expressjs.com/)
-// but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 const express = require("express");
+const bodyParser = require("body-parser");
+const user = require("./routes/user"); //new addition
+const semester = require("./routes/semester"); //new addition
+const InitiateMongoServer = require("./config/db");
+const path = require("path");
+var cors = require("cors");
+
+// Initiate Mongo Server
+InitiateMongoServer();
+
+
+
 const app = express();
 
-// our default array of dreams
-const dreams = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
+// PORT
+const PORT = process.env.PORT || 4000;
 
-// make all the files in 'public' available
-// https://expressjs.com/en/starter/static-files.html
-app.use(express.static("public"));
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
 
-// https://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
-});
 
-// send the default array of dreams to the webpage
-app.get("/dreams", (request, response) => {
-  // express helps us take JS objects and send them as JSON
-  response.json(dreams);
-});
 
-// listen for requests :)
-const listener = app.listen(process.env.PORT, () => {
-  console.log("Your app is listening on port " + listener.address().port);
+app.use("/user", user);
+app.use("/semesters", semester);
+
+app.listen(PORT, (req, res) => {
+  console.log(`Server Started at PORT ${PORT}`);
 });
