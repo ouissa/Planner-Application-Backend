@@ -12,29 +12,13 @@ const InitiateMongoServer = async () => {
   try {
     // Connect to the MongoDB cluster
     await client.connect();
-    console.log("we connected!");
+    console.log("Successfully Connested to The Planner Database");
+    return client
 
-
-    const result = await client
-      .db("planner_database")
-      .collection("courses_collection")
-      .find({})
-      .toArray(function(err, result) {
-        if (err) throw err;
-        console.log(result);
-        client.close();
-      });
-
-    console.log(result);
   } catch (e) {
     console.error(e);
-  } finally {
-    await client.close();
-  }
+  } 
 };
 
-async function returnClient(client) {
- return client;
-}
 
 module.exports = InitiateMongoServer;
