@@ -18,13 +18,17 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:courseCode", async (req, res) => {
+  // connecting to the database should only happen once and dassit
+  // why not in index, because not async
   try {
     const allCourses = await InitiateMongoServer()
+    console.log(allCourses)
     const courseCode = req.params.courseCode
     console.log("looking for: " + courseCode)
     allCourses.forEach(course => {
-      CON
+      console.log(course)
       if (course["Course Code"] == courseCode) {
+        console.log("Target Course Found")
         res.json(course);
       }
     })
