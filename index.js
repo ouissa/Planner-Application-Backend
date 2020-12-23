@@ -8,7 +8,8 @@ var cors = require("cors");
 
 // Initiate Mongo Server
 var allCourses = InitiateMongoServer();
-
+console.log("here are all the courses");
+console.log(allCourses)
 
 const app = express();
 
@@ -25,5 +26,3 @@ app.use("/course", course);
 app.listen(PORT, (req, res) => {
   console.log("Server Started at PORT ${PORT}");
 });
-
-module.exports = allCourses;

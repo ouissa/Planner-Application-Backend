@@ -20,9 +20,9 @@ const InitiateMongoServer = async () => {
       .toArray(function(err, result) {
         if (err) throw err;
         allCourses.push(result);
-        console.log(result);
+
       });
-    return allCourses;
+    return allCourses
   } catch (e) {
     console.error(e);
   }
