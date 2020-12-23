@@ -5,10 +5,19 @@ const InitiateMongoServer = require("../config/db");
 
 const router = express.Router();
 const Courses = require("../models/Course");
+const allCourses = await InitiateMongoServer()
 
 router.get("/", async (req, res) => {
   try {
-    const allCourses = await InitiateMongoServer()
+    res.json(allCourses);
+  } catch (e) {
+    console.log(e);
+    res.send({ message: "Error in querying courses" });
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
     res.json(allCourses);
   } catch (e) {
     console.log(e);
