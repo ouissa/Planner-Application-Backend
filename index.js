@@ -7,7 +7,8 @@ const path = require("path");
 var cors = require("cors");
 
 // Initiate Mongo Server
-const client = InitiateMongoServer();
+var allCourses = InitiateMongoServer();
+module.exports = allCourses;
 
 const app = express();
 
