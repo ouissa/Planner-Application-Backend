@@ -5,10 +5,11 @@ const InitiateMongoServer = require("../config/db");
 
 const router = express.Router();
 const Courses = require("../models/Course");
-const allCourses = await InitiateMongoServer()
+
 
 router.get("/", async (req, res) => {
   try {
+    const allCourses = await InitiateMongoServer()
     res.json(allCourses);
   } catch (e) {
     console.log(e);
@@ -16,12 +17,21 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/:courseCode", async (req, res) => {
   try {
-    res.json(allCourses);
+    const allCourses = await InitiateMongoServer()
+    const courseCode = req.params.courseCode
+    console.log("looking for: " + courseCode)
+    allCourses.forEach(course => {
+      CON
+      if (course["Course Code"] == courseCode) {
+        res.json(course);
+      }
+    })
+    throw new Error("Course Not Found");
   } catch (e) {
     console.log(e);
-    res.send({ message: "Error in querying courses" });
+    res.send({ message: "Error in getting the course you want" });
   }
 });
 
