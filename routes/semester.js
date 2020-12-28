@@ -3,8 +3,14 @@ const { check, validationResult } = require("express-validator");
 
 const router = express.Router();
 
+const Plan = require("../models/Plan");
+
 router.get("/", async (req, res) => {
+  
+  
   try {
+    
+    const plan = await Plan.find({});
     var list = [
       {
         id: "semester-0",
@@ -67,7 +73,7 @@ router.get("/", async (req, res) => {
         courses: []
       }
     ];
-    res.json(list);
+    res.json(plan);
     console.log(
       "Semester Endpoint here (GET OPERATION): Communication with the front-end done"
     );
