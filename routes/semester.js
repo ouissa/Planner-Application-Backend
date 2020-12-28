@@ -5,11 +5,33 @@ const router = express.Router();
 
 const Plan = require("../models/Plan");
 
-router.get("/", async (req, res) => {
-  
-  
+router.post("/", async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array()
+    });
+  }
+
+  // create a new degree plan here
+  const newPlan = {};
   try {
-    
+    Plan.create(newPlan).then(newPlan => {
+      console.log("Degree Plan Added ", newPlan);
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      message: "Server Error in adding a fucking new degree plan"
+    });
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
     const plan = await Plan.find({});
     var list = [
       {
