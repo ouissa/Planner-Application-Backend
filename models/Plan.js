@@ -39,6 +39,10 @@ var semesterSchema = new mongoose.Schema(
 );
 
 const PlanSchema = mongoose.Schema({
+  "studentID": {
+    type: String,
+    required:true
+  },
   semesters: {
     type: [semesterSchema],
     required: true
