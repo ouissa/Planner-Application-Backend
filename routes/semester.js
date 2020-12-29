@@ -99,7 +99,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const plan = await Plan.find({"studentID": req.params.id});
-    const trial = course_collection.find
+    const trial = mongoose.db()course_collection.find
     res.json(plan);
     console.log(
       "Semester Endpoint here (GET OPERATION): Communication with the front-end done"
