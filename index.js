@@ -12,7 +12,7 @@ InitiateMongoServer();
 const app = express();
 
 // PORT
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 
 // Middleware
 app.use(cors());
