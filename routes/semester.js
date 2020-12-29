@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const { check, validationResult } = require("express-validator");
 
 const router = express.Router();
@@ -99,8 +100,9 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const plan = await Plan.find({"studentID": req.params.id});
-    const trial = mongoose.db()course_collection.find
-    res.json(plan);
+    const trial = mongoose.connection
+    console.log(trial.db);
+    res.json(trial);
     console.log(
       "Semester Endpoint here (GET OPERATION): Communication with the front-end done"
     );
