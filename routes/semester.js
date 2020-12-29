@@ -100,7 +100,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const plan = await Plan.find({"studentID": req.params.id});
-    const trial = mongoose.connection
+    const trial = mongoose.connection;
     console.log(trial.db);
     res.json(trial);
     console.log(
