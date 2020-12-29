@@ -96,9 +96,9 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const plan = await Plan.find({"student"});
+    const plan = await Plan.find({"studentID": req.params.id});
     res.json(plan);
     console.log(
       "Semester Endpoint here (GET OPERATION): Communication with the front-end done"
