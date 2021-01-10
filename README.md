@@ -33,4 +33,4 @@ For development, you will only need Node.js and a node global package, npm, inst
 
 ## Collaborators
 
-Ouisal Moumou, Mohamed Aghzal, Anass Ibrahimi
+Ouisal Moumou, Mohamed Aghzal, Anass Ibrahimi, Youssef Gaimes, Aymane Moktary
