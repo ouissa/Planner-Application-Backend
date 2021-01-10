@@ -6,7 +6,11 @@ const router = express.Router();
 
 const Plan = require("../models/Plan");
 
-router.post("/", async (req, res) => {
+// this function takes the user ID from the body of the request
+// It constructs a new Degree Plan object for the corresponding student if the information provided is valid
+// It addes the new degree plan to the Degree Plans collection
+// It returns an error message in the case of a failure in any of the previous steps
+function createNewDegreePlan(req, res) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -15,10 +19,20 @@ router.post("/", async (req, res) => {
     });
   }
 
+  async function find (name, query) {
+    let courses = []
+    collection = mongoose.connection.db.collection(name)
+    courses = collection.find(query).toArray()
+    return courses
+  }
+
+  var courseList = await find("courses_collection", {})
   // create a new degree plan here
+  const studentID = req.body.id;
+
   const newPlan = {
-    "studentID": "123456",
-    "semesters": [
+    studentID,
+    semesters: [
       {
         id: "semester-0",
         title: "Fall 2018",
@@ -80,28 +94,54 @@ router.post("/", async (req, res) => {
         courses: []
       }
     ],
-    "courseList": []
+    courseList: await find("courses_collection", {})
   };
+
   try {
     Plan.create(newPlan).then(newPlan => {
       console.log("Degree Plan Added ", newPlan);
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
-      res.json({"SUCCESSS": true});
+      res.json({"SUCCESS": true});
     });
   } catch (e) {
     console.error(e);
     res.status(500).json({
-      message: "Server Error in adding a fucking new degree plan"
+      message: "Server Error in adding a new degree plan for student with ID bla bla"
     });
   }
-});
+}
 
-router.get("/:id", async (req, res) => {
+// this function takes the user ID, and the new Degree Plan from the body of the request
+// It searches in the Degree Plan collection the student with the corresponding ID
+// It updates the Degree Plan of the student with the new one
+// It returns an error message in the case of a failure in any of the previous steps
+function saveDegreePlan(req, res) {
   try {
-    const plan = await Plan.find({"studentID": req.params.id});
-    const db = mongoose.connection;
-    console.log(db.db("database_planner").collection("courses_collection"))
+    Plan.updateOne({"studentID": req.body.id}, {
+      $set: req.body.newPlan
+    }, { new: true })
+    .then((plan) => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(plan);
+          console.log(plan)
+          console.log("PUT operation done");
+    })
+
+  } catch (e) {
+    console.log(e)
+    res.send({ message: "Error in Fetching semester information" });
+  }
+}
+
+// this function takes the user ID from the body of the request
+// It searches the Degree Plan Collection using the student ID
+// It returns a JSON array of all the matches
+// It returns an error message in the case of a failure in any of the previous steps
+function findDegreePlan(req, res) {
+  try {
+    const plan = await Plan.find({"studentID": req.body.id});
     res.json(plan);
     console.log(
       "Semester Endpoint here (GET OPERATION): Communication with the front-end done"
@@ -109,18 +149,19 @@ router.get("/:id", async (req, res) => {
   } catch (e) {
     res.send({ message: "Error in Fetching semester information" });
   }
+}
+
+// GET, POST, and PUT requests to the degree plans endpoint marked with "/semesters"
+router.post("/", async (req, res) => {
+  createNewDegreePlan(req,res);
 });
 
 router.get("/", async (req, res) => {
-  try {
+  findDegreePlan(req, res);
+});
 
-    res.json({"plan": true});
-    console.log(
-      "Semester Endpoint here (GET OPERATION): Communication with the front-end done"
-    );
-  } catch (e) {
-    res.send({ message: "Error in Fetching semester information" });
-  }
+router.put("/", async (req, res) => {
+  saveDegreePlan(req, res);
 });
 
 module.exports = router;
